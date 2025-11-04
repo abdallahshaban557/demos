@@ -263,7 +263,10 @@ class _LiveAPIDemoState extends ConsumerState<LiveAPIDemo> {
                 ? videoInput.flipCamera
                 : null,
           ),
-          VideoButton(isActive: _cameraIsActive, onPressed: toggleVideoStream),
+          VideoButton(
+            isActive: _cameraIsActive,
+            onPressed: _isCallActive ? toggleVideoStream : null,
+          ),
           AudioVisualizer(
             audioStreamIsActive: _isCallActive,
             amplitudeStream: audioInput.amplitudeStream,
