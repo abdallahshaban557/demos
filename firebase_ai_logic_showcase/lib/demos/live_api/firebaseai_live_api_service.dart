@@ -22,6 +22,7 @@ import '../../shared/app_state.dart';
 import '../../shared/firebaseai_imagen_service.dart';
 import '../../shared/function_calling/tools.dart';
 import '../../shared/services/firestore_service.dart';
+import '../../shared/models/team.dart';
 import 'utilities/audio_output.dart';
 
 /// A service that handles all communication with the Firebase AI Gemini Live API.
@@ -39,6 +40,8 @@ class LiveApiService {
   final void Function(bool isLoading) onImageLoadingChange;
   final void Function(Uint8List imageBytes) onImageGenerated;
   final void Function(String error) onError;
+  final void Function(bool isLoading) onTeamsLoadingChange;
+  final void Function(List<Team> teams) onTeamsReceived;
 
   LiveApiService({
     required AudioOutput audioOutput,
@@ -46,6 +49,8 @@ class LiveApiService {
     required this.onImageLoadingChange,
     required this.onImageGenerated,
     required this.onError,
+    required this.onTeamsLoadingChange,
+    required this.onTeamsReceived,
   }) : _audioOutput = audioOutput,
        _ref = ref;
 
@@ -229,6 +234,7 @@ class LiveApiService {
   }
 
   Future<void> _handleGetTeams(FunctionCall functionCall) async {
+    onTeamsLoadingChange(true);
     log('Getting teams from Firestore...');
     try {
       final teams = await FirestoreService().getTeams();
@@ -236,9 +242,12 @@ class LiveApiService {
       for (final team in teams) {
         log('Team: ${team.teamName}, Members: ${team.teamMembers.join(', ')}');
       }
+      onTeamsReceived(teams);
     } catch (e) {
       log('Error getting teams from tool call: $e');
       onError('Sorry, there was an error getting the teams.');
+    } finally {
+      onTeamsLoadingChange(false);
     }
   }
 }

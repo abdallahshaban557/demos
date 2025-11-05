@@ -21,6 +21,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'ui_components/ui_components.dart';
 import 'utilities/utilities.dart';
 import 'firebaseai_live_api_service.dart';
+import '../../shared/models/team.dart';
 
 class LiveAPIDemo extends ConsumerStatefulWidget {
   const LiveAPIDemo({super.key});
@@ -52,6 +53,7 @@ class _LiveAPIDemoState extends ConsumerState<LiveAPIDemo> {
   bool _isCallActive = false; // True when the audio stream is active.
   bool _cameraIsActive = false; // True when sending video to Gemini.
   bool _loadingImage = false; // True when waiting for an image to be generated.
+  bool _loadingTeams = false;
 
   @override
   void initState() {
@@ -62,6 +64,8 @@ class _LiveAPIDemoState extends ConsumerState<LiveAPIDemo> {
       onImageLoadingChange: _onImageLoadingChange,
       onImageGenerated: _onImageGenerated,
       onError: _showErrorSnackBar,
+      onTeamsReceived: _onTeamsReceived,
+      onTeamsLoadingChange: _onTeamsLoadingChange,
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -102,6 +106,22 @@ class _LiveAPIDemoState extends ConsumerState<LiveAPIDemo> {
       context: context,
       builder: (context) {
         return GeneratedImageDialog(imageBytes: imageBytes);
+      },
+    );
+  }
+
+  void _onTeamsLoadingChange(bool isLoading) {
+    setState(() {
+      _loadingTeams = isLoading;
+    });
+  }
+
+  void _onTeamsReceived(List<Team> teams) {
+    if (!mounted) return;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return TeamsDialog(teams: teams);
       },
     );
   }
@@ -255,6 +275,7 @@ class _LiveAPIDemoState extends ConsumerState<LiveAPIDemo> {
             : null,
         settingUpLiveSession: _isConnecting,
         loadingImage: _loadingImage,
+        loadingTeams: _loadingTeams,
       ),
       bottomNavigationBar: BottomBar(
         children: [

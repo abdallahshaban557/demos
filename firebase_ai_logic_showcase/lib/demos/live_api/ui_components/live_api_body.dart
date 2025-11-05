@@ -25,12 +25,14 @@ class LiveApiBody extends StatelessWidget {
     this.cameraController,
     required this.settingUpLiveSession,
     required this.loadingImage,
+    required this.loadingTeams,
   });
 
   final bool cameraIsActive;
   final CameraController? cameraController;
   final bool settingUpLiveSession;
   final bool loadingImage;
+  final bool loadingTeams;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,14 @@ class LiveApiBody extends StatelessWidget {
               Text('Beep. Boop. Bop. Generating your image...'),
               SizedBox.square(dimension: AppSpacing.s8),
               LinearProgressIndicator(semanticsLabel: 'Generating image...'),
+            ],
+          ),
+        if (loadingTeams)
+          const Column(
+            children: [
+              Text('Getting the teams...'),
+              SizedBox.square(dimension: AppSpacing.s8),
+              LinearProgressIndicator(semanticsLabel: 'Getting teams...'),
             ],
           ),
       ],
