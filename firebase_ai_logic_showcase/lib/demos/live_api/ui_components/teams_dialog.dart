@@ -23,41 +23,64 @@ class TeamsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Teams', style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 16),
-            SingleChildScrollView(
-              child: DataTable(
-                columns: const [
-                  DataColumn(label: Text('Team Name')),
-                  DataColumn(label: Text('Members')),
-                ],
-                rows: teams.map((team) {
-                  return DataRow(
-                    cells: [
-                      DataCell(Text(team.teamName)),
-                      DataCell(Text(team.teamMembers.join(', '))),
-                    ],
-                  );
-                }).toList(),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+      elevation: 0,
+      child: contentBox(context),
+    );
+  }
+
+  Widget contentBox(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.only(
+            left: 16.0,
+            top: 16.0 + 16.0,
+            right: 16.0,
+            bottom: 16.0,
+          ),
+          margin: const EdgeInsets.only(top: 16.0),
+          decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text('Teams', style: Theme.of(context).textTheme.headlineSmall),
+              const SizedBox(height: 16.0),
+              SizedBox(
+                height: 200, // Adjust height as needed
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: teams.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      elevation: 2,
+                      margin: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ListTile(
+                        leading: const Icon(Icons.group),
+                        title: Text(teams[index].teamName),
+                        subtitle: Text(teams[index].teamMembers.join(', ')),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Close'),
+              const SizedBox(height: 16.0),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Close'),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
