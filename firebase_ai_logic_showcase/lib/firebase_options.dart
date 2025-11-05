@@ -47,28 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB2VpF6T3-ToDMj_2XJlTQh6sAGnNuPVks',
-    appId: '1:959782953795:web:8f736f0976a84ba2d045f6',
-    messagingSenderId: '959782953795',
-    projectId: 'abdallah-mc-hackweek',
-    authDomain: 'abdallah-mc-hackweek.firebaseapp.com',
-    storageBucket: 'abdallah-mc-hackweek.firebasestorage.app',
+    apiKey: 'AIzaSyA5pojZmRONvuERPHRU-ofnKU6C6wHmLpU',
+    appId: '1:813226001642:web:4e51d9a857ab3b81348393',
+    messagingSenderId: '813226001642',
+    projectId: 'flutter-abdallah-banan-model',
+    authDomain: 'flutter-abdallah-banan-model.firebaseapp.com',
+    storageBucket: 'flutter-abdallah-banan-model.firebasestorage.app',
+    measurementId: 'G-WCBT633M9K',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBUpPfAHxUfVDzFr-3Kw148afZTzuxf4EI',
-    appId: '1:959782953795:android:2393f3784a838fccd045f6',
-    messagingSenderId: '959782953795',
-    projectId: 'abdallah-mc-hackweek',
-    storageBucket: 'abdallah-mc-hackweek.firebasestorage.app',
+    apiKey: 'AIzaSyAmEB8iYScBSx7ZeqVOZZOk11GQt6L488U',
+    appId: '1:813226001642:android:44a0198b4657a29a348393',
+    messagingSenderId: '813226001642',
+    projectId: 'flutter-abdallah-banan-model',
+    storageBucket: 'flutter-abdallah-banan-model.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDJsOjYS5xvIcbE3bilCn606heMe-U44fI',
-    appId: '1:959782953795:ios:96896541abe4aadfd045f6',
-    messagingSenderId: '959782953795',
-    projectId: 'abdallah-mc-hackweek',
-    storageBucket: 'abdallah-mc-hackweek.firebasestorage.app',
+    apiKey: 'AIzaSyBOxXo62TvGf0iY8EqtfkdbUfcECHMKvgA',
+    appId: '1:813226001642:ios:1f44b6b8c927fc21348393',
+    messagingSenderId: '813226001642',
+    projectId: 'flutter-abdallah-banan-model',
+    storageBucket: 'flutter-abdallah-banan-model.firebasestorage.app',
     iosBundleId: 'com.example.multimodalAiPrototype',
   );
 

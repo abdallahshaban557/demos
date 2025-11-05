@@ -55,7 +55,7 @@ class LiveApiService {
     ),
     model: 'gemini-live-2.5-flash-preview',
     liveGenerationConfig: LiveGenerationConfig(
-      speechConfig: SpeechConfig(voiceName: 'fenrir'),
+      speechConfig: SpeechConfig(voiceName: 'Orus'),
       responseModalities: [ResponseModalities.audio],
     ),
     tools: [
