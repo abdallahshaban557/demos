@@ -44,4 +44,10 @@ final setAppColorTool = FunctionDeclaration(
   },
 );
 
+final getTeamsTool = FunctionDeclaration(
+  'GetTeams',
+  'Get a list of all the teams from the Firestore database.',
+  parameters: {},
+);
+
 // See "live_api" and "chat" demos for full implementation of function calling.

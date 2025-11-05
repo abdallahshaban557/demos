@@ -21,6 +21,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../shared/app_state.dart';
 import '../../shared/firebaseai_imagen_service.dart';
 import '../../shared/function_calling/tools.dart';
+import '../../shared/services/firestore_service.dart';
 import 'utilities/audio_output.dart';
 
 /// A service that handles all communication with the Firebase AI Gemini Live API.
@@ -63,6 +64,7 @@ class LiveApiService {
         setAppColorTool,
         // Gemini Flash Image currently requires the pay-as-you-go Blaze plan.
         generateImageTool,
+        getTeamsTool,
       ]),
     ],
   );
@@ -179,6 +181,9 @@ class LiveApiService {
       case 'SetAppColor':
         _handleSetAppColor(functionCall);
         break;
+      case 'GetTeams':
+        await _handleGetTeams(functionCall);
+        break;
       default:
         log('Unknown function call: ${functionCall.name}');
     }
@@ -220,6 +225,20 @@ class LiveApiService {
   void dispose() {
     if (_liveSessionIsOpen) {
       unawaited(close());
+    }
+  }
+
+  Future<void> _handleGetTeams(FunctionCall functionCall) async {
+    log('Getting teams from Firestore...');
+    try {
+      final teams = await FirestoreService().getTeams();
+      // For now, just log the teams. The user can decide what to do with them later.
+      for (final team in teams) {
+        log('Team: ${team.teamName}, Members: ${team.teamMembers.join(', ')}');
+      }
+    } catch (e) {
+      log('Error getting teams from tool call: $e');
+      onError('Sorry, there was an error getting the teams.');
     }
   }
 }
