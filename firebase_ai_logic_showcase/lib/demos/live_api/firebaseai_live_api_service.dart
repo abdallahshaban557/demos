@@ -57,7 +57,7 @@ class LiveApiService {
   final LiveGenerativeModel
   _liveModel = FirebaseAI.googleAI().liveGenerativeModel(
     systemInstruction: Content.text(
-      'You are a helpful MC for a live hackathon. You need to speak as if you are a gameshow host. If you have a tool to help the user, please use it.',
+      'You are a helpful MC for a hackathon - I want you to speak as if you were an excited game show talk host',
     ),
     model: 'gemini-live-2.5-flash-preview',
     liveGenerationConfig: LiveGenerationConfig(

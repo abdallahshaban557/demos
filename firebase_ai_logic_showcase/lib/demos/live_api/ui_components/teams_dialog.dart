@@ -44,40 +44,42 @@ class TeamsDialog extends StatelessWidget {
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(16.0),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text('Teams', style: Theme.of(context).textTheme.headlineSmall),
-              const SizedBox(height: 16.0),
-              SizedBox(
-                height: 200, // Adjust height as needed
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: teams.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      elevation: 2,
-                      margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: ListTile(
-                        leading: const Icon(Icons.group),
-                        title: Text(teams[index].teamName),
-                        subtitle: Text(teams[index].teamMembers.join(', ')),
-                      ),
-                    );
-                  },
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('Teams', style: Theme.of(context).textTheme.headlineSmall),
+                const SizedBox(height: 16.0),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: teams.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        elevation: 2,
+                        margin: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: ListTile(
+                          leading: const Icon(Icons.group),
+                          title: Text(teams[index].teamName),
+                          subtitle: Text(teams[index].teamMembers.join(', ')),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16.0),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Close'),
+                const SizedBox(height: 16.0),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Close'),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],
